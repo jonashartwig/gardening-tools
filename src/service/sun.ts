@@ -35,5 +35,5 @@ export function getCurrentAltitude(coords: GeolocationCoordinates): number {
 }
 
 export function getAltitude(date: Date, coords: GeolocationCoordinates): number {
-    return Math.round(toAngle(sunCalc.getPosition(date, coords.latitude, coords.longitude).altitude) * 100) / 100;
+    return toAngle(sunCalc.getPosition(date, coords.latitude, coords.longitude).altitude);
 }
