@@ -1,7 +1,6 @@
 <script lang="ts">
 	import "./styles.css";
 	import State from "./state";
-	import { getAltitude } from "./service/sun";
 
 	let state: State = undefined;
 	State.initialize().then(result => state = result);
@@ -10,7 +9,12 @@
 
 <main>
 	{#if state} 
-		current sun altitude: {getAltitude(new Date("2021-06-21T12:00:00"), state.position)}°.
+		The current sun altitude: {state.currentAltitude}°. <br />
+		The highest altitude today is: {state.highestAltitude}°. <br />
+		The sun rises at about {state.sunrise.toLocaleTimeString()}, reaches it highest point at about {state.solarNoon.toLocaleTimeString()} and sets at about {state.sunset.toLocaleTimeString()}. <br />
+		<br />
+		The shadow is {state.shadowMultiplierAtHighestAltitude} times as long as the actual object at the highest altitude. <br />
+		The shadow is {state.shadowMultiplierAtCurrentAltitude} times as long as the actual object at the current altitude.
 	{:else}
 		Please wait while we determine your position.
 		<br />
