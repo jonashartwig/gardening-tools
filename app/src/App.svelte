@@ -13,6 +13,7 @@
 <main>
 	<Tree state={state} />
 	<Tree state={state} isShadow={true} />
+	<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 	{#if state}
 		The current sun altitude: {round(state.currentAltitude)}°. <br />
 		The highest altitude today is: {round(state.highestAltitude)}°. <br />
