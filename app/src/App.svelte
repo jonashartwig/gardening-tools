@@ -3,12 +3,16 @@
 	import State from "./state";
 	import round from "./service/round";
 
+	import Tree from "./components/Tree.svelte";
+
 	let state: State = undefined;
 	State.initialize().then(result => state = result);
 
 </script>
 
 <main>
+	<Tree state={state} />
+	<Tree state={state} isShadow={true} />
 	{#if state}
 		The current sun altitude: {round(state.currentAltitude)}°. <br />
 		The highest altitude today is: {round(state.highestAltitude)}°. <br />
