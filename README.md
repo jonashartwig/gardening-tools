@@ -103,3 +103,9 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
+
+https://opendata.lantmateriet.se/
+https://openweathermap.org/api
+https://rapidapi.com/darkskyapis/api/dark-sky/endpoints
+https://www.smhi.se/data/utforskaren-oppna-data/meteorologisk-analysmodell-mesan-arome-historiska-analysdata
+https://opendata-download-grid-archive.smhi.se/explore/?modeltype=6

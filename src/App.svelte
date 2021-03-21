@@ -9,7 +9,7 @@
 </script>
 
 <main>
-	{#if state} 
+	{#if state}
 		The current sun altitude: {round(state.currentAltitude)}°. <br />
 		The highest altitude today is: {round(state.highestAltitude)}°. <br />
 		The sun rises at about {state.sunrise.toLocaleTimeString()}, reaches it highest point at about {state.solarNoon.toLocaleTimeString()} and sets at about {state.sunset.toLocaleTimeString()}. <br />
