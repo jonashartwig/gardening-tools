@@ -27,16 +27,37 @@
 	}
 
 	.tree.shadow path {
-		transform:
-			rotate(90deg)
-            skewX(-45deg)
-            skewY(20deg)
-			scale(1, var(--scale));
+		animation-name: shadow-animated;
+		animation-duration: 20s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes shadow-animated {
+		0% {
+			transform:
+				rotate(90deg)
+				skewX(-45deg)
+				scale(1, var(--scale));
+		}
+
+		50% {
+			transform:
+				rotate(180deg)
+				scale(1, var(--scale));
+		}
+
+		100% {
+			transform:
+				rotate(270deg)
+				skewX(45deg)
+				scale(1, var(--scale));
+		}
 	}
 </style>
 
 {#if state}
-<svg class="tree" class:shadow={isShadow} style="--scale:{state.shadowMultiplierAtHighestAltitude}" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg class="tree" class:shadow={isShadow} style="--scale:{state.shadowMultiplierAtCurrentAltitude}" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="578.185px" height="578.185px" viewBox="0 0 578.185 578.185" xml:space="preserve">
 <g>
 	<g>

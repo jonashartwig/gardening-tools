@@ -1,22 +1,19 @@
 import { get } from "./service/location";
-import { getTodaySunset, getTodaySunrise, getTodayHighestAltitude, getCurrentAltitude, getTodaySolarNoon } from "./service/sun";
+import { getCurrentAltitude } from "./service/sun";
 import { getMultiplicator } from "./service/shadow";
+import SunCourse from "./course";
 
 class State {
-    readonly sunset: Date
-    readonly sunrise: Date
-    readonly solarNoon: Date
-    readonly highestAltitude: number
-    readonly shadowMultiplierAtHighestAltitude: number
-    readonly shadowMultiplierAtCurrentAltitude: number
+    readonly today: SunCourse
+    readonly summerSolstice: SunCourse
+    readonly winterSolstice: SunCourse
     readonly currentAltitude: number
+    readonly shadowMultiplierAtCurrentAltitude: number
     
     constructor(public readonly coords: GeolocationCoordinates) {
-        this.sunset = getTodaySunset(coords)
-        this.sunrise = getTodaySunrise(coords)
-        this.solarNoon = getTodaySolarNoon(coords)
-        this.highestAltitude = getTodayHighestAltitude(coords)
-        this.shadowMultiplierAtHighestAltitude = getMultiplicator(this.highestAltitude)
+        this.today = SunCourse.atDay(new Date(), coords)
+        this.summerSolstice = SunCourse.atDay(new Date(new Date().getFullYear(), 6, 21), coords)
+        this.winterSolstice = SunCourse.atDay(new Date(new Date().getFullYear(), 12, 21), coords)
         this.currentAltitude = getCurrentAltitude(coords)
         this.shadowMultiplierAtCurrentAltitude = getMultiplicator(this.currentAltitude)
     }

@@ -6,28 +6,24 @@ export function getSunrise(date: Date, coords: GeolocationCoordinates): Date {
     return sunCalc.getTimes(date, coords.latitude, coords.longitude).sunrise;
 }
 
-export function getTodaySunrise(coords: GeolocationCoordinates): Date {
-    return getSunrise(new Date(), coords);
-}
-
 export function getSunset(date: Date, coords: GeolocationCoordinates): Date {
     return sunCalc.getTimes(date, coords.latitude, coords.longitude).sunset;
-}
-
-export function getTodaySunset(coords: GeolocationCoordinates): Date {
-    return getSunset(new Date(), coords);
 }
 
 export function getSolarNoon(date: Date, coords: GeolocationCoordinates): Date {
     return sunCalc.getTimes(date, coords.latitude, coords.longitude).solarNoon;
 }
 
-export function getTodaySolarNoon(coords: GeolocationCoordinates): Date {
-    return getSolarNoon(new Date(), coords);
+export function getNoonAltitude(date: Date, coords: GeolocationCoordinates): number {
+    return getAltitude(getSolarNoon(date, coords), coords);
 }
 
-export function getTodayHighestAltitude(coords: GeolocationCoordinates): number {
-    return getAltitude(getTodaySolarNoon(coords), coords);
+export function getSunsetAltitude(date: Date, coords: GeolocationCoordinates): number {
+    return getAltitude(getSunset(date, coords), coords);
+}
+
+export function getSunriseAltitude(date: Date, coords: GeolocationCoordinates): number {
+    return getAltitude(getSunrise(date, coords), coords);
 }
 
 export function getCurrentAltitude(coords: GeolocationCoordinates): number {
