@@ -5,15 +5,22 @@ import SunCourse from "./course";
 
 class State {
     readonly today: SunCourse
+    readonly springEquinox: SunCourse
     readonly summerSolstice: SunCourse
+    readonly autumnEquinox: SunCourse
     readonly winterSolstice: SunCourse
     readonly currentAltitude: number
     readonly shadowMultiplierAtCurrentAltitude: number
     
     constructor(public readonly coords: GeolocationCoordinates) {
-        this.today = SunCourse.atDay(new Date(), coords)
-        this.summerSolstice = SunCourse.atDay(new Date(new Date().getFullYear(), 6, 21), coords)
-        this.winterSolstice = SunCourse.atDay(new Date(new Date().getFullYear(), 12, 21), coords)
+        this.today = SunCourse.today(coords);
+        
+        this.springEquinox = SunCourse.atSpringEquinox(coords);
+        this.autumnEquinox = SunCourse.atAutumnEquinox(coords);
+
+        this.summerSolstice = SunCourse.atSummerSolstice(coords);
+        this.winterSolstice = SunCourse.atWinterSolstice(coords);
+        
         this.currentAltitude = getCurrentAltitude(coords)
         this.shadowMultiplierAtCurrentAltitude = getMultiplicator(this.currentAltitude)
     }

@@ -1,4 +1,5 @@
 import sunCalc from "suncalc";
+import * as astronomyEngine from "astronomy-engine";
 
 import { toAngle } from "./radians";
 
@@ -36,4 +37,20 @@ export function getCurrentAltitude(coords: GeolocationCoordinates): number {
 
 export function getAltitude(date: Date, coords: GeolocationCoordinates): number {
     return toAngle(sunCalc.getPosition(date, coords.latitude, coords.longitude).altitude);
+}
+
+export function getSpringEquinoxDate(): Date {
+    return astronomyEngine.Seasons(new Date().getUTCFullYear()).mar_equinox.date;
+}
+
+export function getAutumnEquinoxDate(): Date {
+    return astronomyEngine.Seasons(new Date().getUTCFullYear()).sep_equinox.date;
+}
+
+export function getSummerSolsticeDate(): Date {
+    return astronomyEngine.Seasons(new Date().getUTCFullYear()).jun_solstice.date;
+}
+
+export function getWinterSolsticeDate(): Date {
+    return astronomyEngine.Seasons(new Date().getUTCFullYear()).dec_solstice.date;
 }
