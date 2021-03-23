@@ -2,13 +2,13 @@ import * as sun from "./service/sun";
 import { getMultiplicator } from "./service/shadow";
 
 export default class SunLocation {
-    readonly shadowMultiplyer: number
+    readonly shadowMultiplier: number
     
     constructor(
         readonly time: Date,
         readonly altitude: number
     ) {
-        this.shadowMultiplyer = getMultiplicator(altitude);
+        this.shadowMultiplier = getMultiplicator(altitude);
     }
 
     static atNoon(date: Date, coords: GeolocationCoordinates): SunLocation {
@@ -18,17 +18,21 @@ export default class SunLocation {
         );
     }
 
-    static atSunSet(date: Date, coords: GeolocationCoordinates): SunLocation {
+    static atSunset(date: Date, coords: GeolocationCoordinates): SunLocation {
+        const sunset = sun.getSunset(date, coords);
+        
         return new SunLocation(
-            sun.getSunset(date, coords),
-            sun.getSunsetAltitude(date, coords)
+            sunset,
+            sun.getAltitude(new Date(sunset.getTime() - 60 * 60000), coords)
         );
     }
 
-    static atSunRise(date: Date, coords: GeolocationCoordinates): SunLocation {
+    static atSunrise(date: Date, coords: GeolocationCoordinates): SunLocation {
+        const sunrise = sun.getSunrise(date, coords)
+        
         return new SunLocation(
-            sun.getSunrise(date, coords),
-            sun.getSunriseAltitude(date, coords)
+            sunrise,
+            sun.getAltitude(new Date(sunrise.getTime() + 60 * 60000), coords)
         );
     }
 }

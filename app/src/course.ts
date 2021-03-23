@@ -2,16 +2,16 @@ import SunPosition from "./location";
 
 export default class SunCourse {
     constructor(
-        readonly sunRise: SunPosition,
+        readonly sunrise: SunPosition,
         readonly noon: SunPosition,
-        readonly sunSet: SunPosition
+        readonly sunset: SunPosition
     ) {}
 
     static atDay(date: Date, coords: GeolocationCoordinates): SunCourse {
         return new SunCourse(
-            SunPosition.atSunRise(date, coords),
+            SunPosition.atSunrise(date, coords),
             SunPosition.atNoon(date, coords),
-            SunPosition.atSunSet(date, coords)
+            SunPosition.atSunset(date, coords)
         ); 
     }
 }
