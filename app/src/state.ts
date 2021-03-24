@@ -11,6 +11,7 @@ class State {
     readonly winterSolstice: SunCourse
     readonly currentAltitude: number
     readonly shadowMultiplierAtCurrentAltitude: number
+    readonly sortedDates: Array<SunCourse>
     
     constructor(public readonly coords: GeolocationCoordinates) {
         this.today = SunCourse.today(coords);
@@ -23,6 +24,14 @@ class State {
         
         this.currentAltitude = getCurrentAltitude(coords)
         this.shadowMultiplierAtCurrentAltitude = getMultiplicator(this.currentAltitude)
+
+        this.sortedDates = [
+            this.today,
+            this.springEquinox,
+            this.summerSolstice,
+            this.autumnEquinox,
+            this.winterSolstice
+        ].sort((a, b) => a.sunrise.time.getTime() - b.sunrise.time.getTime());
     }
 
     static async initialize(): Promise<State> {

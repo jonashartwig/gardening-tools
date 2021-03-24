@@ -3,13 +3,15 @@ import * as sun from "./service/sun";
 
 export default class SunCourse {
     constructor(
+        readonly translationKey: String,
         readonly sunrise: SunPosition,
         readonly noon: SunPosition,
         readonly sunset: SunPosition
     ) {}
 
-    static atDay(date: Date, coords: GeolocationCoordinates): SunCourse {
+    static atDay(translationKey: String, date: Date, coords: GeolocationCoordinates): SunCourse {
         return new SunCourse(
+            translationKey,
             SunPosition.atSunrise(date, coords),
             SunPosition.atNoon(date, coords),
             SunPosition.atSunset(date, coords)
@@ -17,22 +19,22 @@ export default class SunCourse {
     }
 
     static today(coords: GeolocationCoordinates): SunCourse {
-        return this.atDay(new Date(), coords);
+        return this.atDay("today", new Date(), coords);
     }
 
     static atWinterSolstice(coords: GeolocationCoordinates): SunCourse {
-        return this.atDay(sun.getWinterSolsticeDate(), coords);
+        return this.atDay("winter_solstice", sun.getWinterSolsticeDate(), coords);
     }
 
     static atSummerSolstice(coords: GeolocationCoordinates): SunCourse {
-        return this.atDay(sun.getSummerSolsticeDate(), coords);
+        return this.atDay("summer_solstice", sun.getSummerSolsticeDate(), coords);
     }
     
     static atAutumnEquinox(coords: GeolocationCoordinates): SunCourse {
-        return this.atDay(sun.getAutumnEquinoxDate(), coords);
+        return this.atDay("autumn_equinox", sun.getAutumnEquinoxDate(), coords);
     }
     
     static atSpringEquinox(coords: GeolocationCoordinates): SunCourse {
-        return this.atDay(sun.getSpringEquinoxDate(), coords);
+        return this.atDay("spring_equinox", sun.getSpringEquinoxDate(), coords);
     }
 }
