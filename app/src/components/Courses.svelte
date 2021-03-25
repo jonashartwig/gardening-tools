@@ -1,21 +1,32 @@
 <script>
     import TreeAnimation from "./TreeAnimation.svelte";
 	import round from "../service/round";
+    import { getAltitude } from "../service/sun";
+    import { afterUpdate, onDestroy, onMount, beforeUpdate } from "svelte";
     
     export let state = undefined;
-
+    
     let selected = state.today,
-        mounted = true;
-
+        mounted = true,
+        value = selected.noon.time.getTime();
+    
+    $: min = selected.sunrise.time.getTime();
+    $: max = selected.sunset.time.getTime();
+    $: selectedDate = new Date(value);
+    $: selectedAltitude = getAltitude(selectedDate, state.coords);
+    
     function select(date) {
-        selected = date
+        selected = date;
+        value = selected.noon.time.getTime();
+
         mounted = false; 
         setTimeout(() => mounted = true, 0);
     }
 
-    window.$(function () {
-        window.$('.courses-tooltippable').tooltip()
-    })
+    // activate tooltips and update content when component updates
+    onMount(() => window.$('.courses-tooltippable').tooltip());
+    afterUpdate(() => window.$('.courses-tooltippable').tooltip('_fixTitle'));
+    onDestroy(() => window.$('.courses-tooltippable').tooltip('dispose'));
 </script>
 
 <div class="row">
@@ -41,8 +52,12 @@
     <div class="w-100" />
     <div class="col">
         <div class="form-group">
-            <input type="range" class="form-control-range" step=600000 value={selected.noon.time.getTime()} min={selected.sunrise.time.getTime()} max={selected.sunset.time.getTime()} />
+            <input type="range" class="form-control-range" step=60000 bind:value min={min} max={max} />
         </div>
+    </div>
+    <div class="w-100" />
+    <div class="col">
+        Selected time is {selectedDate.toISOString().substr(11, 8)} at {round(selectedAltitude)}°.
     </div>
 </div>
 
