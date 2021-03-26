@@ -1,6 +1,9 @@
-<script>
-    export let state = undefined,
-        isShadow = false;
+<script lang="ts">
+	import type SunCourse from "../course";
+
+
+    export let state: SunCourse = undefined,
+        isShadow: Boolean = false;
 </script>
 
 <style>

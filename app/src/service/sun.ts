@@ -19,10 +19,6 @@ export function getSolarNoon(date: Date, coords: GeolocationCoordinates): Date {
     return getTimes(date, coords).solarNoon;
 }
 
-export function getNoonAltitude(date: Date, coords: GeolocationCoordinates): number {
-    return getAltitude(getSolarNoon(date, coords), coords);
-}
-
 export function getSunsetAltitude(date: Date, coords: GeolocationCoordinates): number {
     return getAltitude(getSunset(date, coords), coords);
 }
@@ -37,6 +33,10 @@ export function getCurrentAltitude(coords: GeolocationCoordinates): number {
 
 export function getAltitude(date: Date, coords: GeolocationCoordinates): number {
     return toAngle(sunCalc.getPosition(date, coords.latitude, coords.longitude).altitude);
+}
+
+export function getAzimuth(date: Date, coords: GeolocationCoordinates): number {
+    return toAngle(sunCalc.getPosition(date, coords.latitude, coords.longitude).azimuth);
 }
 
 export function getSpringEquinoxDate(): Date {

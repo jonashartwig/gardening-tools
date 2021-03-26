@@ -18,7 +18,7 @@
 <main>
 	<div class="container">
 		{#if state}
-			<Courses state={state} />
+			<Courses bind:state />
 			<div class="row">
 				<div class="col">
 					The current sun altitude: {round(state.currentAltitude)}°. <br />

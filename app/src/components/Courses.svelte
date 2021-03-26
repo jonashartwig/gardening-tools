@@ -1,22 +1,23 @@
-<script>
+<script lang="ts">
     import TreeAnimation from "./TreeAnimation.svelte";
 	import round from "../service/round";
-    import { getAltitude } from "../service/sun";
-    import { afterUpdate, onDestroy, onMount, beforeUpdate } from "svelte";
+    import { afterUpdate, onDestroy, onMount } from "svelte";
+    import SunLocation from "../location";
+    import type State from "../state";
+    import type SunCourse from "../course";
     
-    export let state = undefined;
+    export let state: State = undefined;
     
-    let selected = state.today,
-        mounted = true,
-        value = selected.noon.time.getTime();
+    let selected: SunCourse = state.today,
+        mounted: Boolean = true,
+        value: number = selected.noon.time.getTime();
     
     $: min = selected.sunrise.time.getTime();
     $: max = selected.sunset.time.getTime();
-    $: selectedDate = new Date(value);
-    $: selectedAltitude = getAltitude(selectedDate, state.coords);
+    $: selectedLocation = SunLocation.atDate(new Date(value), state.coords);
     
-    function select(date) {
-        selected = date;
+    function select(sunCourse: SunCourse) {
+        selected = sunCourse;
         value = selected.noon.time.getTime();
 
         mounted = false; 
@@ -24,8 +25,12 @@
     }
 
     // activate tooltips and update content when component updates
+
+    // @ts-ignore
     onMount(() => window.$('.courses-tooltippable').tooltip());
+    // @ts-ignore
     afterUpdate(() => window.$('.courses-tooltippable').tooltip('_fixTitle'));
+    // @ts-ignore
     onDestroy(() => window.$('.courses-tooltippable').tooltip('dispose'));
 </script>
 
@@ -52,12 +57,12 @@
     <div class="w-100" />
     <div class="col">
         <div class="form-group">
-            <input type="range" class="form-control-range" step=60000 bind:value min={min} max={max} />
+            <input type="range" class="form-control-range" bind:value min={min} max={max} />
         </div>
     </div>
     <div class="w-100" />
     <div class="col">
-        Selected time is {selectedDate.toISOString().substr(11, 8)} at {round(selectedAltitude)}°.
+        Selected time is {selectedLocation.time.toISOString().substr(11, 8)} at an altitude of {round(selectedLocation.altitude)}° and an azimuth of {round(selectedLocation.azimuth)}°.
     </div>
 </div>
 

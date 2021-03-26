@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
+    import type SunCourse from "../course";
+
     import Tree from "./Tree.svelte";
     
-    export let state = undefined;
+    export let state: SunCourse = undefined;
 </script>
 
 <Tree state={state} />
