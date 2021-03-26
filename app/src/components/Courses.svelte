@@ -34,6 +34,12 @@
     onDestroy(() => window.$('button,.courses-tooltippable').tooltip('dispose'));
 </script>
 
+<style>
+    .courses-tooltippable {
+        cursor: pointer;
+    }
+</style>
+
 <div class="row">
     {#each state.sortedDates as date}
         <div class="col" on:click|preventDefault|stopPropagation={() => select(date)}>
@@ -64,13 +70,13 @@
 
 <div class="row">
     <div class="col text-left">
-        <i class="bi bi-sunrise courses-tooltippable" data-toggle="tooltip" data-placement="bottom" title="Sunrise at {selected.sunrise.time.toISOString().substr(11, 8)} with an altitude of {round(selected.sunrise.altitude)}°"></i>
+        <i class="bi bi-sunrise courses-tooltippable" on:click={() => value = selected.sunrise.time.getTime()} data-toggle="tooltip" data-placement="bottom" title="Sunrise at {selected.sunrise.time.toISOString().substr(11, 8)} with an altitude of {round(selected.sunrise.altitude)}°"></i>
     </div>
     <div class="col">
-        <i class="bi bi-sun courses-tooltippable" data-toggle="tooltip" data-placement="bottom" title="Solar noon at {selected.noon.time.toISOString().substr(11, 8)} with an altitude of {round(selected.noon.altitude)}°"></i>
+        <i class="bi bi-sun courses-tooltippable" on:click={() => value = selected.noon.time.getTime()} data-toggle="tooltip" data-placement="bottom" title="Solar noon at {selected.noon.time.toISOString().substr(11, 8)} with an altitude of {round(selected.noon.altitude)}°"></i>
     </div>
     <div class="col text-right">
-        <i class="bi bi-sunset courses-tooltippable" data-placement="bottom" title="Sunset at {selected.sunset.time.toISOString().substr(11, 8)} with an altitude of {round(selected.sunset.altitude)}°"></i>
+        <i class="bi bi-sunset courses-tooltippable" on:click={() => value = selected.sunset.time.getTime()} data-placement="bottom" title="Sunset at {selected.sunset.time.toISOString().substr(11, 8)} with an altitude of {round(selected.sunset.altitude)}°"></i>
     </div>
     <div class="w-100" />
     <div class="col">

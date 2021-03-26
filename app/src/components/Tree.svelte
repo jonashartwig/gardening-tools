@@ -32,17 +32,13 @@
 	}
 
 	.tree.shadow path {
-		animation-name: shadow-animated;
-		animation-duration: 20s;
-		animation-iteration-count: infinite;
-		animation-timing-function: linear;
 		transform:
 			rotate(var(--rotation))
 			scaleY(var(--scaling));
 	}
 </style>
 
-<svg class="tree" class:shadow={isShadow} style="--rotation:{rotation}deg;--scaling:{scaling};" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg class="tree" class:shadow={isShadow} style="--rotation:{rotation}deg; --scaling:{scaling};" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="578.185px" height="578.185px" viewBox="0 0 578.185 578.185" xml:space="preserve">
 <g>
 	<g>
