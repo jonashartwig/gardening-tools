@@ -1,6 +1,5 @@
 import * as sun from "./service/sun";
 import { getMultiplicator } from "./service/shadow";
-import { DeltaT_JplHorizons } from "astronomy-engine";
 
 export default class SunLocation {
     readonly shadowMultiplier: number

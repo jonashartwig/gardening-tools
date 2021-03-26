@@ -27,21 +27,39 @@
     // activate tooltips and update content when component updates
 
     // @ts-ignore
-    onMount(() => window.$('.courses-tooltippable').tooltip());
+    onMount(() => window.$('button,.courses-tooltippable').tooltip());
     // @ts-ignore
-    afterUpdate(() => window.$('.courses-tooltippable').tooltip('_fixTitle'));
+    afterUpdate(() => window.$('button,.courses-tooltippable').tooltip('_fixTitle'));
     // @ts-ignore
-    onDestroy(() => window.$('.courses-tooltippable').tooltip('dispose'));
+    onDestroy(() => window.$('button,.courses-tooltippable').tooltip('dispose'));
 </script>
 
 <div class="row">
-    <ol class="nav justify-content-center">
-        {#each state.sortedDates as date}
-            <li class="nav-item" on:click|preventDefault|stopPropagation={() => select(date)}>
-                <a class="nav-link active" href="#">{ date.translationKey }</a>
-            </li>
-        {/each}
-    </ol>
+    {#each state.sortedDates as date}
+        <div class="col" on:click|preventDefault|stopPropagation={() => select(date)}>
+            {#if date.translationKey == "spring_equinox"}
+                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                    <i class="bi bi-circle-half"></i>
+                </button>
+            {:else if date.translationKey == "autumn_equinox"}
+                <button type="button" class="btn btn-default btn-lg" style="transform: rotate(180deg)" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                    <i class="bi bi-circle-half"></i>
+                </button>
+            {:else if date.translationKey == "winter_solstice"}
+                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                    <i class="bi bi-circle-fill"></i>
+                </button>
+            {:else if date.translationKey == "summer_solstice"}
+                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                    <i class="bi bi-circle"></i>
+                </button>
+            {:else}
+                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                    <i class="bi bi-calendar-check"></i>
+                </button>
+            {/if}
+        </div>
+    {/each}
 </div>
 
 <div class="row">

@@ -3,13 +3,13 @@ import * as sun from "./service/sun";
 
 export default class SunCourse {
     constructor(
-        readonly translationKey: String,
+        readonly translationKey: string,
         readonly sunrise: SunPosition,
         readonly noon: SunPosition,
         readonly sunset: SunPosition
     ) {}
 
-    static atDay(translationKey: String, date: Date, coords: GeolocationCoordinates): SunCourse {
+    static atDay(translationKey: string, date: Date, coords: GeolocationCoordinates): SunCourse {
         return new SunCourse(
             translationKey,
             SunPosition.atSunrise(date, coords),
