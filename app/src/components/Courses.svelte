@@ -67,5 +67,5 @@
 </div>
 
 {#if mounted}
-    <TreeAnimation state={selected} />
+    <TreeAnimation state={selectedLocation} />
 {/if}

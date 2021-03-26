@@ -1,9 +1,11 @@
 <script lang="ts">
-	import type SunCourse from "../course";
+	import type SunLocation from "../location";
 
-
-    export let state: SunCourse = undefined,
+    export let state: SunLocation = undefined,
         isShadow: Boolean = false;
+	
+	$: rotation = 180 + state.azimuth;
+	$: scaling = state.shadowMultiplier;
 </script>
 
 <style>
@@ -34,33 +36,13 @@
 		animation-duration: 20s;
 		animation-iteration-count: infinite;
 		animation-timing-function: linear;
-	}
-	
-	@keyframes shadow-animated {
-		0% {
-			transform:
-				rotate(90deg)
-				skewX(-10deg)
-				scaleY(var(--multiplierSunrise));
-		}
-
-		50% {
-			transform:
-				rotate(180deg)
-				skewX(0deg)
-				scaleY(var(--multiplierNoon));
-		}
-
-		100% {
-			transform:
-				rotate(270deg)
-				skewX(10deg)
-				scaleY(var(--multiplierSunset));
-		}
+		transform:
+			rotate(var(--rotation))
+			scaleY(var(--scaling));
 	}
 </style>
 
-<svg class="tree" class:shadow={isShadow} style="--multiplierSunrise:{state.sunrise.shadowMultiplier}; --multiplierNoon:{state.noon.shadowMultiplier}; --multiplierSunset:{state.sunset.shadowMultiplier};" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg class="tree" class:shadow={isShadow} style="--rotation:{rotation}deg;--scaling:{scaling};" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="578.185px" height="578.185px" viewBox="0 0 578.185 578.185" xml:space="preserve">
 <g>
 	<g>

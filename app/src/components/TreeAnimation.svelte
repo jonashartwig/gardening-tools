@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type SunCourse from "../course";
+    import type SunLocation from "../location";
 
     import Tree from "./Tree.svelte";
     
-    export let state: SunCourse = undefined;
+    export let state: SunLocation = undefined;
 </script>
 
 <Tree state={state} />
