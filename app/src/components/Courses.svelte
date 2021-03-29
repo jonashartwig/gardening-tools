@@ -1,10 +1,11 @@
 <script lang="ts">
-    import TreeAnimation from "./TreeAnimation.svelte";
+    import Animation from "./Animation.svelte";
 	import round from "../service/round";
     import { afterUpdate, onDestroy, onMount } from "svelte";
     import SunLocation from "../location";
     import type State from "../state";
     import type SunCourse from "../course";
+    import Tree from "./Tree.svelte";
     
     export let state: State = undefined;
     
@@ -91,5 +92,5 @@
 </div>
 
 {#if mounted}
-    <TreeAnimation state={selectedLocation} />
+    <Animation state={selectedLocation} component={Tree} />
 {/if}
