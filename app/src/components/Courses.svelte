@@ -11,7 +11,7 @@
     
     let selected: SunCourse = state.today,
         mounted: Boolean = true,
-        value: number = selected.noon.time.getTime();
+        value: number = state.now.time.getTime();
     
     $: min = selected.sunrise.time.getTime();
     $: max = selected.sunset.time.getTime();
@@ -77,13 +77,13 @@
 
 <div class="row">
     <div class="col text-left">
-        <i class="bi bi-sunrise courses-tooltippable" on:click={() => value = selected.sunrise.time.getTime()} data-toggle="tooltip" data-placement="bottom" title="Sunrise at {selected.sunrise.time.toISOString().substr(11, 8)} with an altitude of {round(selected.sunrise.altitude)}°"></i>
+        <i class="bi bi-sunrise courses-tooltippable" on:click={() => value = selected.sunrise.time.getTime()} data-toggle="tooltip" data-placement="bottom" title="Sunrise at {selected.sunrise.time.toLocaleTimeString()} with an altitude of {round(selected.sunrise.altitude)}°"></i>
     </div>
     <div class="col">
-        <i class="bi bi-sun courses-tooltippable" on:click={() => value = selected.noon.time.getTime()} data-toggle="tooltip" data-placement="bottom" title="Solar noon at {selected.noon.time.toISOString().substr(11, 8)} with an altitude of {round(selected.noon.altitude)}°"></i>
+        <i class="bi bi-sun courses-tooltippable" on:click={() => value = selected.noon.time.getTime()} data-toggle="tooltip" data-placement="bottom" title="Solar noon at {selected.noon.time.toLocaleTimeString()} with an altitude of {round(selected.noon.altitude)}°"></i>
     </div>
     <div class="col text-right">
-        <i class="bi bi-sunset courses-tooltippable" on:click={() => value = selected.sunset.time.getTime()} data-placement="bottom" title="Sunset at {selected.sunset.time.toISOString().substr(11, 8)} with an altitude of {round(selected.sunset.altitude)}°"></i>
+        <i class="bi bi-sunset courses-tooltippable" on:click={() => value = selected.sunset.time.getTime()} data-placement="bottom" title="Sunset at {selected.sunset.time.toLocaleTimeString()} with an altitude of {round(selected.sunset.altitude)}°"></i>
     </div>
     <div class="w-100" />
     <div class="col">
@@ -93,7 +93,7 @@
     </div>
     <div class="w-100" />
     <div class="col">
-        Selected time is {selectedLocation.time.toISOString().substr(11, 8)} at an altitude of {round(selectedLocation.altitude)}° and an azimuth of {round(selectedLocation.azimuth)}°.
+        Selected time is {selectedLocation.time.toLocaleTimeString()} at an altitude of {round(selectedLocation.altitude)}° and an azimuth of {round(selectedLocation.azimuth)}° with a {round(selectedLocation.shadowMultiplier)} times longer shadow.
     </div>
 </div>
 

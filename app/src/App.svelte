@@ -19,13 +19,13 @@
 	<div class="container">
 		{#if state}
 			<div class="row">
-				{#if state.currentAltitude > 0}
+				{#if state.now.altitude > 0}
 					<div class="col">
-						Currently the sun is visible at an altitude of: {round(state.currentAltitude)}°. <br />
+						Currently the sun is visible at an altitude of: {round(state.now.altitude)}°. <br />
 					</div>
 					<div class="w-100"></div>
 					<div class="col">
-						That makes the shadow {round(state.shadowMultiplierAtCurrentAltitude)} times longer than the actual object.
+						That makes the shadow {round(state.now.shadowMultiplier)} times longer than the actual object.
 					</div>
 				{:else}
 					<div class="col">
