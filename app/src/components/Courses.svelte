@@ -39,6 +39,12 @@
     .courses-tooltippable {
         cursor: pointer;
     }
+
+    .slider-veritical {
+        writing-mode: bt-lr; /* IE */
+        -webkit-appearance: slider-vertical; /* WebKit */
+        height: 100%;
+    }
 </style>
 
 <div class="row">
@@ -91,6 +97,21 @@
     </div>
 </div>
 
-{#if mounted}
-    <Animation state={selectedLocation} component={Tree} />
-{/if}
+<div class="row">
+    <div class="col-1" style="height: 500px;">
+        <div class="form-group" style="height: 100%;">
+            <input type="range" class="form-control-range slider-veritical" />
+        </div>
+    </div>
+    <div class="col-10">
+        {#if mounted}
+            <Animation state={selectedLocation} component={Tree} />
+        {/if}
+    </div>
+    <div class="w-100" />
+    <div class="col">
+        Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a>
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    </div>
+</div>

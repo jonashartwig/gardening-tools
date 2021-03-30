@@ -46,20 +46,3 @@ main {
         opacity: 0;
     }
 }
-
-.animation {
-    overflow: visible;
-    position: absolute;
-    transform: scale(0.2, 0.2);
-}
-
-.animation.shadow * path,circle {
-    transform-origin: center bottom;
-    fill: black;
-}
-
-.animation.shadow path,circle {
-    transform:
-        rotate(var(--rotation))
-        scaleY(var(--scaling));
-}
