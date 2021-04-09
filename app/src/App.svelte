@@ -12,7 +12,6 @@
 
 			console.log(state);
 		});
-
 </script>
 
 <main>

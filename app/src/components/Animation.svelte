@@ -18,12 +18,12 @@
         position: absolute;
     }
 
-    :global(.animation.animation-shadow * path,circle) {
+    :global(.animation.animation-shadow circle, .animation.animation-shadow path) {
         transform-origin: center bottom;
         fill: black;
     }
 
-    :global(.animation.animation-shadow path,circle) {
+    :global(.animation.animation-shadow circle, .animation.animation-shadow path) {
         transform:
             rotate(var(--rotation))
             scaleY(var(--scaling));

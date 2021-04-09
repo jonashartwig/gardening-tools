@@ -45,29 +45,38 @@
         -webkit-appearance: slider-vertical; /* WebKit */
         height: 100%;
     }
+
+    .selected {
+        color: #007bff;
+        border: 0;
+    }
+
+    .selected:focus {
+        outline: none;
+    }
 </style>
 
 <div class="row">
     {#each state.sortedDates as date}
         <div class="col" on:click|preventDefault|stopPropagation={() => select(date)}>
             {#if date.translationKey == "spring_equinox"}
-                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                <button type="button" class="btn btn-default btn-lg shadow-none" class:selected={selected.translationKey == "spring_equinox"} data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
                     <i class="bi bi-circle-half"></i>
                 </button>
             {:else if date.translationKey == "autumn_equinox"}
-                <button type="button" class="btn btn-default btn-lg" style="transform: rotate(180deg)" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                <button type="button" class="btn btn-default btn-lg shadow-none" class:selected={selected.translationKey == "autumn_equinox"} style="transform: rotate(180deg)" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
                     <i class="bi bi-circle-half"></i>
                 </button>
             {:else if date.translationKey == "winter_solstice"}
-                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                <button type="button" class="btn btn-default btn-lg shadow-none" class:selected={selected.translationKey == "winter_solstice"} data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
                     <i class="bi bi-circle-fill"></i>
                 </button>
             {:else if date.translationKey == "summer_solstice"}
-                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                <button type="button" class="btn btn-default btn-lg shadow-none" class:selected={selected.translationKey == "summer_solstice"} data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
                     <i class="bi bi-circle"></i>
                 </button>
             {:else}
-                <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
+                <button type="button" class="btn btn-default btn-lg shadow-none border-none" class:selected={selected.translationKey == "today"} data-toggle="tooltip" data-placement="bottom" title={date.translationKey}>
                     <i class="bi bi-calendar-check"></i>
                 </button>
             {/if}
