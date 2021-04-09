@@ -12,6 +12,11 @@
     :global(.animation) {
         overflow: visible;
         transform: scale(0.2, 0.2);
+        z-index: 1;
+    }
+
+    :global(.animation.animation-shadow) {
+        z-index: 0;
     }
 
     :global(.animation:not(.animation-shadow)) {

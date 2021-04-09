@@ -5,7 +5,7 @@
     import SunLocation from "../location";
     import type State from "../state";
     import type SunCourse from "../course";
-    import Tree from "./Tree.svelte";
+    import Tree from "./BerryBush.svelte";
     
     export let state: State = undefined;
     
