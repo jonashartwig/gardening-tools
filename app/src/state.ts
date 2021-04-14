@@ -36,6 +36,11 @@ class State {
     static async initialize(): Promise<State> {
         return await get()
             .then(position => new State(position))
+            .catch(e => {
+                console.log(e);
+                
+                throw e;
+            })
     }
 }
 

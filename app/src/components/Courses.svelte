@@ -6,6 +6,7 @@
     import type State from "../state";
     import type SunCourse from "../course";
     import Tree from "./BerryBush.svelte";
+    import Compass from "./Compass.svelte";
     
     export let state: State = undefined;
     
@@ -53,6 +54,16 @@
 
     .selected:focus {
         outline: none;
+    }
+
+    .compass {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        transform: rotate(180deg) scale(0.15, 0.15);
+        width: 256px;
+        height: 256px;
+        transform-origin: center;
     }
 </style>
 
@@ -113,6 +124,9 @@
         </div>
     </div>
     <div class="col-10">
+        <div class="compass">
+            <Compass />
+        </div>
         {#if mounted}
             <Animation state={selectedLocation} component={Tree} />
         {/if}
