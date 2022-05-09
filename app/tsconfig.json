@@ -1,6 +1,11 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "es2020"
+    ]
+  },
 
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/cut.spec.ts"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }

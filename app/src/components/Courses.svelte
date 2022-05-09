@@ -1,28 +1,28 @@
 <script lang="ts">
     import Animation from "./Animation.svelte";
-	import round from "../service/round";
+	  import round from "../service/round";
     import { afterUpdate, onDestroy, onMount } from "svelte";
     import SunLocation from "../location";
     import type State from "../state";
     import type SunCourse from "../course";
-    import Tree from "./BerryBush.svelte";
+    import Tree from "./Tree.svelte";
     import Compass from "./Compass.svelte";
-    
+
     export let state: State = undefined;
-    
+
     let selected: SunCourse = state.today,
         mounted: Boolean = true,
         value: number = state.now.time.getTime();
-    
+
     $: min = selected.sunrise.time.getTime();
     $: max = selected.sunset.time.getTime();
     $: selectedLocation = SunLocation.atDate(new Date(value), state.coords);
-    
+
     function select(sunCourse: SunCourse) {
         selected = sunCourse;
         value = selected.noon.time.getTime();
 
-        mounted = false; 
+        mounted = false;
         setTimeout(() => mounted = true, 0);
     }
 
