@@ -1,4 +1,4 @@
-import type Piece from "./piece";
+import Piece from "./piece";
 
 class Attempt {
     readonly usedPieces: Array<Piece>;
@@ -40,6 +40,14 @@ class Attempt {
                 ]
             );
         });
+    }
+
+    cutFromAvailablePiece(wantedPiece: number, margin: number, availablePiece: number): Array<Attempt> {
+        return new Attempt([
+            new Piece(availablePiece),
+            ...this.usedPieces
+        ])
+            .cut(wantedPiece, margin);
     }
 }
 

@@ -31,7 +31,8 @@ describe("attempt", () => {
       expect(attempt.cut(1, 1)).to.deep.equal([
         new Attempt([ new Piece(10, [ 1 ], 8), new Piece(5), new Piece(5, [ 1 ], 3), new Piece(1) ]),
         new Attempt([ new Piece(5, [ 1 ], 3), new Piece(10), new Piece(5, [ 1 ], 3), new Piece(1) ]),
-        new Attempt([ new Piece(5, [ 1, 1 ], 1), new Piece(10), new Piece(5), new Piece(1) ])
+        new Attempt([ new Piece(5, [ 1, 1 ], 1), new Piece(10), new Piece(5), new Piece(1) ]),
+        new Attempt([ new Piece(1, [ 1 ], -1), new Piece(10), new Piece(5), new Piece(5, [ 1 ], 3) ])
       ]);
     });
   });

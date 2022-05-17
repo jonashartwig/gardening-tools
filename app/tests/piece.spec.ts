@@ -17,7 +17,7 @@ describe("piece", () => {
     });
 
     it("cut should throw error", () => {
-      expect(() => new Piece(10).cut(10, 1)).to.throw("Cannot cut 10 with 1 from 10");
+      expect(() => new Piece(10).cut(11, 1)).to.throw("Cannot cut 11 with 1 from 10");
     });
 
     it("cut should cut properly", () => {
