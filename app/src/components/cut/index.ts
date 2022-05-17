@@ -1,7 +1,7 @@
 import Attempt from "./attempt";
 
 function cutAttempt(attempt: Attempt, wantedPiece: number, availablePieces: Array<number>, margin: number): Array<Attempt> {
-    const availablePiecesWithRightLength = availablePieces.filter(piece => piece < wantedPiece),
+    const availablePiecesWithRightLength = availablePieces.filter(piece => piece <= wantedPiece),
         attemptsWithNewPiece = availablePiecesWithRightLength.flatMap(availablePiece => attempt.cutFromAvailablePiece(wantedPiece, margin, availablePiece));
     
     if(attempt.canCut(wantedPiece)) {

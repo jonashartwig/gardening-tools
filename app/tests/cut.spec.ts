@@ -11,6 +11,6 @@ describe("cut", () => {
     });
 
     it("should find perfect length", () => {
-      expect(cut([ 1200 ], [ 1200 ], 0)).to.equal(new Attempt([ new Piece(1200, [ 1200 ], 0) ]));
+      expect(cut([ 1200 ], [ 1200 ], 0)).to.deep.equal(new Attempt([ new Piece(1200, [ 1200 ], 0) ]));
     });
   });
