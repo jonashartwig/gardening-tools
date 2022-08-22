@@ -7,9 +7,6 @@
 
 	import cut from "./components/cut";
 
-	console.log("lsdfölksaölfkjasödlkfjsdlk")
-	console.log(cut([ 1200 ], [ 1000 ]));
-
 	let state: State = undefined;
 	State.initialize()
 		.then(result => {

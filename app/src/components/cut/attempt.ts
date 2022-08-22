@@ -4,8 +4,10 @@ class Attempt {
     readonly usedPieces: Array<Piece>;
     readonly leftovers: number;
     readonly leftoverPieces: Array<Piece>;
+    readonly wantedPieces: Array<number>;
 
-    constructor(usedPieces: Array<Piece> = new Array()) {
+    constructor(wantedPieces: Array<number>, usedPieces: Array<Piece> = new Array()) {
+        this.wantedPieces = wantedPieces;
         this.usedPieces = usedPieces;
         this.leftoverPieces = usedPieces.filter(piece => piece.hasLeft());
         this.leftovers = this.leftoverPieces.reduce(
@@ -14,16 +16,27 @@ class Attempt {
         );
     }
 
-    getAvailableLeftoversForCut(wantedPiece: number): Array<Piece> {
+    private getAvailableLeftoversForCut(wantedPiece: number): Array<Piece> {
         return this.leftoverPieces.filter(piece => piece.canCut(wantedPiece));
     }
 
-    canCut(wantedPiece: number) : boolean {
+    canCutFromLeftover() : boolean {
+        if(!this.wantedPieces.length) {
+            return false;
+        }
+        
+        const wantedPiece = this.wantedPieces[0];
+        
         return this.getAvailableLeftoversForCut(wantedPiece).length > 0;
     }
 
-    cut(wantedPiece: number, margin: number): Array<Attempt> {
-        const availableLeftovers = this.getAvailableLeftoversForCut(wantedPiece),
+    cutFromLeftover(margin: number): Array<Attempt> {
+        if (!this.wantedPieces.length) {
+            return [ this ];
+        }
+        
+        const wantedPiece = this.wantedPieces[0],
+            availableLeftovers = this.getAvailableLeftoversForCut(wantedPiece),
             notAvailableLeftovers = this.leftoverPieces.filter(piece => !piece.canCut(wantedPiece));
 
         if (availableLeftovers.length == 0) {
@@ -32,6 +45,7 @@ class Attempt {
 
         return availableLeftovers.map((piece, index) => {
             return new Attempt(
+                this.wantedPieces.slice(1),
                 [
                     piece.cut(wantedPiece, margin),
                     ...availableLeftovers.slice(0, index),
@@ -42,12 +56,28 @@ class Attempt {
         });
     }
 
-    cutFromAvailablePiece(wantedPiece: number, margin: number, availablePiece: number): Array<Attempt> {
-        return new Attempt([
-            new Piece(availablePiece),
-            ...this.usedPieces
-        ])
-            .cut(wantedPiece, margin);
+    canCutFromAvailablePiece(availablePiece: number): boolean {
+        const wantedPiece = this.wantedPieces[0];
+
+        return wantedPiece <= availablePiece;
+    }
+
+    cutFromAvailablePiece(margin: number, availablePiece: number): Attempt {
+        if (!this.wantedPieces.length) {
+            return this;
+        }
+        if (!this.canCutFromAvailablePiece(availablePiece)) {
+            return this;
+        }
+        const wantedPiece = this.wantedPieces[0];
+        
+        return new Attempt(
+            this.wantedPieces.slice(1),
+            [
+                new Piece(availablePiece).cut(wantedPiece, margin),
+                ...this.usedPieces
+            ]
+        );
     }
 }
 

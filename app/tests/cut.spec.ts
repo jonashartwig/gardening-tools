@@ -11,6 +11,29 @@ describe("cut", () => {
     });
 
     it("should find perfect length", () => {
-      expect(cut([ 1200 ], [ 1200 ], 0)).to.deep.equal(new Attempt([ new Piece(1200, [ 1200 ], 0) ]));
+      expect(cut([ 1200 ], [ 1200 ], 0)).to.deep.equal(new Attempt([], [ new Piece(1200, [ 1200 ], 0) ]));
+    });
+
+    it("should ignore duplicates available pieces", () => {
+      expect(cut([ 1200 ], [ 1200, 1200 ], 0)).to.deep.equal(new Attempt([], [ new Piece(1200, [ 1200 ], 0) ]));
+    });
+
+    it("should find best option", () => {
+      expect(cut([ 1200 ], [ 1300, 1200 ], 0)).to.deep.equal(new Attempt([], [ new Piece(1200, [ 1200 ], 0) ]));
+    });
+
+    it("should find trivial complex solution", () => {
+      expect(cut([ 1200, 1200, 1200, 1200, 1200 ], [ 1300, 1200 ], 0)).to.deep.equal(
+        new Attempt(
+          [],
+          [
+            new Piece(1200, [ 1200 ], 0),
+            new Piece(1200, [ 1200 ], 0),
+            new Piece(1200, [ 1200 ], 0),
+            new Piece(1200, [ 1200 ], 0),
+            new Piece(1200, [ 1200 ], 0)
+          ]
+        )
+      );
     });
   });
