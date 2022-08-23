@@ -36,6 +36,14 @@ describe("attempt", () => {
       ]);
     });
 
+    it("cutFromLeftover should remove equal options", () => {
+      const attempt = new Attempt([1], [ new Piece(10), new Piece(10) ]);
+
+      expect(attempt.cutFromLeftover(1)).to.deep.equal([
+        new Attempt([], [ new Piece(10, [ 1 ], 8), new Piece(10) ])
+      ]);
+    });
+
     it("cutFromAvailablePiece should return self if no more piece wanted", () => {
       const attempt = new Attempt([]);
 

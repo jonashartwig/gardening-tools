@@ -1,3 +1,4 @@
+import { uniqWith } from "lodash";
 import Piece from "./piece";
 
 class Attempt {
@@ -36,20 +37,23 @@ class Attempt {
         }
         
         const wantedPiece = this.wantedPieces[0],
-            availableLeftovers = this.getAvailableLeftoversForCut(wantedPiece),
-            notAvailableLeftovers = this.leftoverPieces.filter(piece => !piece.canCut(wantedPiece));
+            availableLeftovers = this.getAvailableLeftoversForCut(wantedPiece);
 
         if (availableLeftovers.length == 0) {
             return [ this ];
         }
 
-        return availableLeftovers.map((piece, index) => {
+        const notAvailableLeftovers = this.leftoverPieces.filter(piece => !piece.canCut(wantedPiece)),
+            uniqueAvailableLeftovers = uniqWith(availableLeftovers, (a, b) => a.leftover == b.leftover);
+
+        return uniqueAvailableLeftovers.map((piece, index) => {
             return new Attempt(
                 this.wantedPieces.slice(1),
                 [
                     piece.cut(wantedPiece, margin),
-                    ...availableLeftovers.slice(0, index),
-                    ...availableLeftovers.slice(index + 1, availableLeftovers.length),
+                    ...uniqueAvailableLeftovers.slice(0, index),
+                    ...uniqueAvailableLeftovers.slice(index + 1, uniqueAvailableLeftovers.length),
+                    ...availableLeftovers.filter(availableLeftover => uniqueAvailableLeftovers.indexOf(availableLeftover) == -1),
                     ...notAvailableLeftovers
                 ]
             );

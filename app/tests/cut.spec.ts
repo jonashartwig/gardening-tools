@@ -36,4 +36,31 @@ describe("cut", () => {
         )
       );
     });
+
+    it("should find complex solution", () => {
+      expect(
+        cut(
+          [
+            ...Array(22).fill(200),
+            ...Array(4).fill(390),
+            ...Array(12).fill(410),
+            ...Array(4).fill(960),
+            ...Array(4).fill(920),
+            ...Array(4).fill(390),
+            ...Array(12).fill(960),
+            ...Array(4).fill(1250)
+          ],
+          [ 3000, 3600, 4200, 4500, 4800, 5400 ], 0)).to.deep.equal(
+          new Attempt(
+            [],
+            [
+              new Piece(1200, [ 1200 ], 0),
+              new Piece(1200, [ 1200 ], 0),
+              new Piece(1200, [ 1200 ], 0),
+              new Piece(1200, [ 1200 ], 0),
+              new Piece(1200, [ 1200 ], 0)
+            ]
+          )
+        );
+      });
   });
