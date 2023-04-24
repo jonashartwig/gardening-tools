@@ -63,4 +63,53 @@ describe("attempt", () => {
         new Attempt([], [ new Piece(2, [ 1 ], 0) ])
       );
     });
+
+    it("bestSuccessfullAttemptOf should return the one isDone (a)", () => {
+      const a = new Attempt([], []),
+        b = new Attempt([1], []);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(a);
+    });
+
+    it("bestSuccessfullAttemptOf should return the one isDone (b)", () => {
+      const a = new Attempt([1], []),
+        b = new Attempt([], []);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(b);
+    });
+
+    it("bestSuccessfullAttemptOf should return the one with less used pieces (a)", () => {
+      const a = new Attempt([], [new Piece(1)]),
+        b = new Attempt([], [new Piece(1), new Piece(1)]);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(a);
+    });
+
+    it("bestSuccessfullAttemptOf should return the one with less used pieces (b)", () => {
+      const a = new Attempt([], [new Piece(1), new Piece(1)]),
+        b = new Attempt([], [new Piece(1)]);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(b);
+    });
+
+    it("bestSuccessfullAttemptOf should return the one with less leftovers (a)", () => {
+      const a = new Attempt([], [new Piece(1, [], 0)]),
+        b = new Attempt([], [new Piece(1, [], 1)]);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(a);
+    });
+
+    it("bestSuccessfullAttemptOf should return the one with less leftovers (b)", () => {
+      const a = new Attempt([], [new Piece(1, [], 1)]),
+        b = new Attempt([], [new Piece(1, [], 0)]);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(b);
+    });
+
+    it("bestSuccessfullAttemptOf should return undefined if none is done", () => {
+      const a = new Attempt([1], []),
+        b = new Attempt([1], []);
+      
+      expect(Attempt.bestSuccessfullAttemptOf(a, b)).to.equal(undefined);
+    });
   });

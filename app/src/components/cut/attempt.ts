@@ -83,6 +83,67 @@ class Attempt {
             ]
         );
     }
+
+    toString(): string {
+        return `Attempt<(
+            wantedPieces: ${this.wantedPieces}
+            usedPieces: ${this.usedPieces}
+            leftovers: ${this.leftovers}
+            leftoverPieces: ${this.leftoverPieces}
+        )>`;
+    }
+
+    isDone(): boolean {
+        return this.wantedPieces.length == 0;
+    }
+
+    static worstCaseOf(wantedPieces: Array<number>): Attempt {
+        return new Attempt(
+            wantedPieces,
+            wantedPieces.map(() => new Piece(Infinity, [], Infinity))
+        )
+    }
+
+    static compare(a: Attempt, b: Attempt): number {
+        const bestSuccessfullAttemptOf = Attempt.bestSuccessfullAttemptOf(a, b);
+
+        if (!bestSuccessfullAttemptOf) {
+            return 0;
+        }
+
+        if (bestSuccessfullAttemptOf == a) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    static bestSuccessfullAttemptOf(a: Attempt, b: Attempt): Attempt {
+        if (a.isDone() && !b.isDone()) {
+            return a;
+        }
+    
+        if (!a.isDone() && b.isDone()) {
+            return b;
+        }
+
+        if (a.isDone() && b.isDone()) {
+            if (a.usedPieces.length == b.usedPieces.length) {
+                if (a.leftovers < b.leftovers) {
+                    return a;
+                } else {
+                    return b;
+                }
+            } else if (a.usedPieces.length < b.usedPieces.length) {
+                return a;
+            } else {
+                return b;
+            }
+        }
+
+        // inconclusive
+        return undefined;
+    }
 }
 
 export default Attempt;
